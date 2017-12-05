@@ -17,7 +17,7 @@ import java.io.File;
 public class ThemeManager {
     public final static int CUSTOM = 0;
 
-    public final static String MY_DIARY_APP_NAME = "MyDiary";
+    public final static String CUSTOM_TOPIC_BG_FILENAME = "custom_topic_bg";
 
     public int currentTheme = CUSTOM;
 
@@ -76,7 +76,7 @@ public class ThemeManager {
         FileManager diaryFM = new FileManager(context, FileManager.DIARY_ROOT_DIR);
         File entriesBg = new File(
                 diaryFM.getDirAbsolutePath()
-                        + "/" + MY_DIARY_APP_NAME);
+                        + "/" + CUSTOM_TOPIC_BG_FILENAME);
         if (entriesBg.exists()) {
             bgDrawable = Drawable.createFromPath(entriesBg.getAbsolutePath());
         } else {

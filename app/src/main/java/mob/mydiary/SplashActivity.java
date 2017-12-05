@@ -12,12 +12,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        new Handler().postDelayed(new Runnable() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainActivity = new Intent(SplashActivity.this, MainActivity.class);
-                SplashActivity.this.startActivity(mainActivity);
-                SplashActivity.this.finish();
+                Intent mainActivity = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(mainActivity);
+                finish();
             }
         },DelayTime);
     }
