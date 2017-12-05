@@ -38,10 +38,9 @@ public class CopyDiaryToEditCacheTask extends AsyncTask<Long, Void, Integer> {
     protected Integer doInBackground(Long... params) {
 
         int copyResult = RESULT_COPY_SUCCESSFUL;
-        long topicId = params[0];
-        long diaryId = params[1];
+        long diaryId = params[0];
         try {
-            FileManager diaryFileManager = new FileManager(mContext);
+            FileManager diaryFileManager = new FileManager(mContext,diaryId);
             File[] childrenPhoto = diaryFileManager.getDir().listFiles();
             for (int i = 0; i < diaryFileManager.getDir().listFiles().length; i++) {
                 copyPhoto(childrenPhoto[i].getName(), diaryFileManager);

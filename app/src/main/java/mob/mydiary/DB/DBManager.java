@@ -95,6 +95,16 @@ public class DBManager {
         return c;
     }
 
+    // DB에서 Title로 검색한다.
+    public Cursor selectDiaryListByTitle(String title) {
+        Cursor c = db.query(DiaryEntry.TABLE_NAME, null, DiaryEntry.COLUMN_TITLE + " = ?",new String[]{String.valueOf(title)}, null, null,
+                DiaryEntry.COLUMN_TIME + " DESC , " + DiaryEntry._ID + " DESC", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     // DiaryEntry._ID 가 diaryId와 일치하는 Row만 구한다.
     public Cursor selectDiaryInfoByDiaryId(long diaryId) {
         Cursor c = db.query(DiaryEntry.TABLE_NAME, null, DiaryEntry._ID + " = ?", new String[]{String.valueOf(diaryId)},

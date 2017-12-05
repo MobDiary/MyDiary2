@@ -91,6 +91,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
     private Spinner SP_diary_weather, SP_diary_mood;
 
     private TextView TV_diary_title_content;
+    private TextView TV_diary_content;
     private EditText EDT_diary_title, EDT_diary_content;
 
     private ImageView IV_diary_close_dialog,
@@ -207,7 +208,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
 
         IV_diary_delete = (ImageView) rootView.findViewById(R.id.IV_diary_delete);
-
         IV_diary_save = (ImageView) rootView.findViewById(R.id.IV_diary_save);
 
         initView(rootView);
@@ -310,15 +310,18 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             //Allow to edit diary
             LL_diary_time_information.setOnClickListener(this);
             EDT_diary_title.setText(diaryInfoCursor.getString(2));
+            EDT_diary_content.setText(diaryInfoCursor.getString(3));
         }
 
         // 일반 보는 모드
         else {
             String diaryTitleStr = diaryInfoCursor.getString(2);
+            String diaryContentStr = diaryInfoCursor.getString(3);
             if (diaryTitleStr == null || diaryTitleStr.equals("")) {
                 diaryTitleStr = getString(R.string.diary_no_title);
             }
             TV_diary_title_content.setText(diaryTitleStr);
+            TV_diary_content.setText(diaryContentStr);
         }
         setIcon(diaryInfoCursor.getInt(4), diaryInfoCursor.getInt(5));
         diaryInfoCursor.close();
@@ -347,13 +350,14 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             initWeatherSpinner();
 
             IV_diary_delete.setOnClickListener(this);
-            IV_diary_save.setVisibility(View.GONE);
+            IV_diary_save.setOnClickListener(this);
 
         }
 
         // 보기 모드
         else {
             EDT_diary_title.setVisibility(View.GONE);
+            EDT_diary_content.setVisibility(View.GONE);
             RL_diary_weather = (RelativeLayout) rootView.findViewById(R.id.RL_diary_weather);
             RL_diary_weather.setVisibility(View.GONE);
             RL_diary_mood = (RelativeLayout) rootView.findViewById(R.id.RL_diary_mood);
@@ -368,7 +372,12 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             TV_diary_title_content.setVisibility(View.VISIBLE);
             TV_diary_title_content.setTextColor(ThemeManager.getInstance().getThemeMainColor(getActivity()));
 
+            TV_diary_content = (TextView) rootView.findViewById(R.id.TV_diary_content);
+            TV_diary_content.setVisibility(View.VISIBLE);
+            TV_diary_content.setTextColor(ThemeManager.getInstance().getThemeMainColor(getActivity()));
+
             IV_diary_delete.setOnClickListener(this);
+
             IV_diary_save.setVisibility(View.GONE);
 
         }
@@ -415,15 +424,11 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
         DBManager dbManager = new DBManager(getActivity());
         dbManager.openDB();
-        //Create locationName
-        String locationName = TV_diary_location.getText().toString();
-        if (noLocation.equals(locationName)) {
-            locationName = "";
-        }
         dbManager.updateDiary(diaryId, calendar.getTimeInMillis(), EDT_diary_title.getText().toString(),
                 EDT_diary_content.getText().toString(),
                 SP_diary_mood.getSelectedItemPosition(), SP_diary_weather.getSelectedItemPosition());
 
+        ((MainActivity) getActivity()).callEntriesListRefresh();
     }
 
     public void onDiaryUpdated() {
@@ -471,7 +476,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             PB_diary_item_content_hint.setVisibility(View.GONE);
             initData();
             //Open the click listener
-            IV_diary_clear.setOnClickListener(this);
+            IV_diary_delete.setOnClickListener(this);
             IV_diary_save.setOnClickListener(this);
         } else {
             dismissAllowingStateLoss();

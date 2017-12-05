@@ -1,11 +1,14 @@
 package mob.mydiary.Diary;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -21,12 +25,15 @@ import java.util.Calendar;
 import mob.mydiary.DB.DBHelper;
 import mob.mydiary.DB.DBManager;
 import mob.mydiary.BaseFragment;
+import mob.mydiary.Diary.picker.DatePickerFragment;
+import mob.mydiary.Diary.picker.TimePickerFragment;
 import mob.mydiary.Entries.EntriesFragment;
 import mob.mydiary.MainActivity;
 import mob.mydiary.Manager.TimeManager;
 import mob.mydiary.R;
 
-public class DiaryFragment extends BaseFragment implements View.OnClickListener{
+public class DiaryFragment extends BaseFragment implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener{
 
     private Intent intent;
     private DBHelper mDBHelper;
@@ -147,9 +154,9 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.LL_diary_time_information:
-//                DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(calendar.getTimeInMillis());
-//                datePickerFragment.setOnDateSetListener(this);
-//                datePickerFragment.show(getFragmentManager(), "datePickerFragment");
+                DatePickerFragment datePickerFragment = DatePickerFragment.newInstance(calendar.getTimeInMillis());
+                datePickerFragment.setOnDateSetListener(this);
+                datePickerFragment.show(getFragmentManager(), "datePickerFragment");
                 break;
             case R.id.IV_diary_save:
                     saveDiary();
@@ -173,5 +180,33 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
         setCurrentTime(true);
         ((MainActivity) getActivity()).callEntriesListRefresh();
         ((MainActivity) getActivity()).gotoPage(0);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        //Since JellyBean, the onDateSet() method of the DatePicker class is called twice
+        if (view.isShown()) {
+            calendar.set(year, monthOfYear, dayOfMonth);
+            setDiaryTime();
+            TimePickerFragment timePickerFragment = TimePickerFragment.newInstance(calendar.getTimeInMillis());
+            timePickerFragment.setOnTimeSetListener(this);
+            timePickerFragment.show(getFragmentManager(), "timePickerFragment");
+        }
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        //Since JellyBean, the onTimeSet() method of the TimePicker class is called twice
+        if (view.isShown()) {
+            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            calendar.set(Calendar.MINUTE, minute);
+            setDiaryTime();
+        }
+    }
+    private void setDiaryTime() {
+        TV_diary_month.setText(timeManager.getMonthsFullName()[calendar.get(Calendar.MONTH)]);
+        TV_diary_date.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        TV_diary_day.setText(timeManager.getDaysFullName()[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
+        TV_diary_time.setText(sdf.format(calendar.getTime()));
     }
 }

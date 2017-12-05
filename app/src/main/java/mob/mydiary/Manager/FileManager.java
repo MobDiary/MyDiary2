@@ -89,6 +89,10 @@ public class FileManager {
         this.fileDir = mContext.getExternalFilesDir(DIARY_ROOT_DIR_STR + "/MyDiary/");
 
     }
+    public FileManager(Context context, long diaryId) {
+        this.mContext = context;
+        this.fileDir = mContext.getExternalFilesDir(DIARY_ROOT_DIR_STR + "/" + diaryId + "/");
+    }
 
 
     public File getDir() {
