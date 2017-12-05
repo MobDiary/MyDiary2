@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
     /**
      초기 화면으로
      */
@@ -262,9 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (diaryContentCursor != null && diaryContentCursor.getCount() > 0) {
                 String summary = "";
                 //Check content Type
-                if (diaryContentCursor.getInt(1) == IDairyRow.TYPE_PHOTO) {
-                    summary = getString(R.string.entries_summary_photo);
-                } else if (diaryContentCursor.getInt(1) == IDairyRow.TYPE_TEXT) {
+                if (diaryContentCursor.getInt(1) == IDairyRow.TYPE_TEXT) {
                     summary = diaryContentCursor.getString(3)
                             .substring(0, Math.min(MAX_TEXT_LENGTH, diaryContentCursor.getString(3).length()));
                 }
