@@ -98,15 +98,9 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             IV_diary_delete, IV_diary_clear, IV_diary_save;
     private boolean isEditMode;
 
-    /**
-     * diary content & info
-     */
     private long diaryId;
     private FileManager diaryFileManager;
 
-    /**
-     * Edit Mode
-     */
     private CopyDiaryToEditCacheTask mTask;
     private Handler loadDiaryHandler;
     private boolean initHandlerOrTaskIsRunning = false;
@@ -115,29 +109,12 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
     private TimeManager timeTools;
     private SimpleDateFormat sdf;
 
-    /**
-     * Diary Photo viewer
-     */
     private ArrayList<Uri> diaryPhotoFileList;
 
-    /**
-     * Google Place API
-     */
-    private int PLACE_PICKER_REQUEST = 1;
-    /**
-     * Location
-     */
     private DiaryViewerHandler diaryViewerHandler;
-    private boolean haveLocation;
-    private String noLocation;
+
     private ProgressDialog progressDialog;
 
-
-    /**
-     * Permission
-     */
-    private boolean firstAllowLocationPermission = false;
-    private boolean firstAllowCameraPermission = false;
 
 
     public static DiaryViewerDialogFragment newInstance(long diaryId, boolean isEditMode) {
@@ -169,9 +146,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
             }
         };
-        // request a window without the title
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        //Set background is transparent , for dialog radius
         dialog.getWindow().getDecorView().getBackground().setAlpha(0);
         return dialog;
     }
@@ -211,8 +186,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         IV_diary_save = (ImageView) rootView.findViewById(R.id.IV_diary_save);
 
         initView(rootView);
-        noLocation = getString(R.string.diary_no_location);
-
         return rootView;
     }
 
@@ -221,7 +194,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         super.onViewCreated(view, savedInstanceState);
         callback = (DiaryViewerCallback) getTargetFragment();
         diaryId = getArguments().getLong("diaryId", -1L);
-        //Init the object
+        // View초기화 후 Object 초기화
         if (diaryId != -1) {
             if (isEditMode) {
                 diaryViewerHandler = new DiaryViewerHandler(this);
@@ -250,7 +223,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
     @Override
     public void onStart() {
         super.onStart();
-        //Modify dialog size
         Dialog dialog = getDialog();
         if (dialog != null) {
             int dialogHeight;
@@ -305,7 +277,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         sdf = new SimpleDateFormat("HH:mm");
         setDiaryTime();
 
-        // 편집하는 모드라면
+        // 편집 모드
         if (isEditMode) {
             //Allow to edit diary
             LL_diary_time_information.setOnClickListener(this);
@@ -313,7 +285,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             EDT_diary_content.setText(diaryInfoCursor.getString(3));
         }
 
-        // 일반 보는 모드
+        // 보기 모드
         else {
             String diaryTitleStr = diaryInfoCursor.getString(2);
             String diaryContentStr = diaryInfoCursor.getString(3);
@@ -325,7 +297,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         }
         setIcon(diaryInfoCursor.getInt(4), diaryInfoCursor.getInt(5));
         diaryInfoCursor.close();
-        //Get diary detail
         dbManager.closeDB();
     }
 
@@ -341,7 +312,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             SP_diary_weather = (Spinner) rootView.findViewById(R.id.SP_diary_weather);
             SP_diary_weather.setVisibility(View.VISIBLE);
 
-            //For hidden hint
+            // 힌트를 숨긴다.
             EDT_diary_title.setText(" ");
             EDT_diary_title.getBackground().mutate().setColorFilter(ThemeManager.getInstance().getThemeMainColor(getActivity()),
                     PorterDuff.Mode.SRC_ATOP);

@@ -164,6 +164,7 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener,
                 break;
         }
     }
+
     private void saveDiary() {
         mDBManager.openDB();
         mDBManager.beginTransaction();

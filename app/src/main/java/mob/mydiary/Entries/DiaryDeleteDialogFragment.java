@@ -13,10 +13,6 @@ import java.io.IOException;
 
 import static org.apache.commons.io.FileUtils.deleteDirectory;
 
-/**
- * Created by daxia on 2016/11/14.
- */
-
 public class DiaryDeleteDialogFragment extends CommonDialogFragment {
 
     private DeleteCallback callback;
@@ -48,7 +44,6 @@ public class DiaryDeleteDialogFragment extends CommonDialogFragment {
         try {
             deleteDirectory(new FileManager(getActivity()).getDir());
         } catch (IOException e) {
-            //just do nothing
             e.printStackTrace();
         }
 
