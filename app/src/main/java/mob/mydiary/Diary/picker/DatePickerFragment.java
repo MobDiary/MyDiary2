@@ -1,4 +1,4 @@
-package mob.mydiary.Diary.Diary.picker;
+package mob.mydiary.Diary.picker;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

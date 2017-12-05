@@ -1,4 +1,4 @@
-package mob.mydiary.Diary.Diary;
+package mob.mydiary.Diary;
 
 import mob.mydiary.R;
 

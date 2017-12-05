@@ -1,4 +1,4 @@
-package mob.mydiary.Diary.Diary;
+package mob.mydiary.Diary;
 
 import android.content.Context;
 import android.view.LayoutInflater;

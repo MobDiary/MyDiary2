@@ -1,13 +1,11 @@
 package mob.mydiary.Diary;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,13 +21,9 @@ import java.util.Calendar;
 import mob.mydiary.DB.DBHelper;
 import mob.mydiary.DB.DBManager;
 import mob.mydiary.BaseFragment;
-import mob.mydiary.Diary.Diary.DiaryInfoHelper;
-import mob.mydiary.Diary.Diary.ImageArrayAdapter;
 import mob.mydiary.Manager.TimeManager;
-import mob.mydiary.BaseFragment;
 import mob.mydiary.R;
-import mob.mydiary.Diary.Diary.picker.DatePickerFragment;
-import mob.mydiary.Diary.Diary.picker.TimePickerFragment;
+
 public class DiaryFragment extends BaseFragment implements View.OnClickListener{
 
     private Intent intent;

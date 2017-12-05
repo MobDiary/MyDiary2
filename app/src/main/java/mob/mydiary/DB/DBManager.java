@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import mob.mydiary.DB.DBHelper;
-import mob.mydiary.DB.DiaryItem.*;
+import mob.mydiary.DB.DBStructure.*;
 public class DBManager {
 
     //TODO add SQLiteException

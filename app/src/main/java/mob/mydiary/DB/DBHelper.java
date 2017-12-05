@@ -3,7 +3,7 @@ package mob.mydiary.DB;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import mob.mydiary.DB.DiaryItem.*;
+import mob.mydiary.DB.DBStructure.*;
 
 /**
  * Created by JooYoung on 2017-12-05.
