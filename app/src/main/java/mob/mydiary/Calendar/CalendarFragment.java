@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 import mob.mydiary.R;
 import mob.mydiary.BaseFragment;
 import mob.mydiary.MainActivity;
-import mob.mydiary.Shared.ThemeManager;
+import mob.mydiary.Manager.ThemeManager;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;

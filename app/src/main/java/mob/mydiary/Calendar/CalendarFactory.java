@@ -7,9 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import mob.mydiary.Shared.ScreenHelper;
-import mob.mydiary.Shared.ThemeManager;
-import mob.mydiary.Shared.TimeTools;
+import mob.mydiary.Manager.ScreenHelper;
+import mob.mydiary.Manager.ThemeManager;
+import mob.mydiary.Manager.TimeManager;
 
 import java.util.Calendar;
 
@@ -20,7 +20,7 @@ public class CalendarFactory {
     private Calendar calendar;
     private int dateChange = 0;
 
-    private TimeTools timeTools;
+    private TimeManager timeTools;
     private Paint monthPaint, datePaint, dayPaint;
 
     private Rect textRect;
@@ -33,7 +33,7 @@ public class CalendarFactory {
     public CalendarFactory(Context context,Calendar calendar ,int width, int height) {
 
         this.calendar = calendar;
-        timeTools = TimeTools.getInstance(context);
+        timeTools = TimeManager.getInstance();
         mContext = context;
         textRect = new Rect(0, 0, width, height);
         scale = context.getResources().getDisplayMetrics().density;

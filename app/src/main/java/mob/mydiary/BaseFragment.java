@@ -8,10 +8,6 @@ import mob.mydiary.Entries.EntriesEntity;
 
 
 public class BaseFragment extends Fragment{
-    public long getTopicId() {
-        return ((MainActivity) getActivity()).getTopicId();
-    }
-
 
     public List<EntriesEntity> getEntriesList() {
         return ((MainActivity) getActivity()).getEntriesList();

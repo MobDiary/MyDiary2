@@ -89,9 +89,11 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
         SP_diary_mood = (Spinner) rootView.findViewById(R.id.SP_diary_mood);
         SP_diary_mood.setVisibility(View.VISIBLE);
 
+        EDT_diary_title = (EditText) rootView.findViewById(R.id.EDT_diary_title);
+        EDT_diary_title.setOnClickListener(this);
 
-        LL_diary_content = (LinearLayout) rootView.findViewById(R.id.EDT_diary_content);
-        LL_diary_content.setOnClickListener(this);
+        EDT_diary_content = (EditText) rootView.findViewById(R.id.EDT_diary_content);
+        EDT_diary_content.setOnClickListener(this);
 
         IV_diary_delete = (ImageView) rootView.findViewById(R.id.IV_diary_delete);
         IV_diary_delete.setVisibility(View.GONE);

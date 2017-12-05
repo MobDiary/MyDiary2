@@ -19,8 +19,8 @@ import android.widget.Scroller;
 
 import com.facebook.device.yearclass.YearClass;
 import mob.mydiary.R;
-import mob.mydiary.Shared.ScreenHelper;
-import mob.mydiary.Shared.PhoneHelper;
+import mob.mydiary.Manager.ScreenHelper;
+import mob.mydiary.Manager.PhoneHelper;
 
 import java.util.Calendar;
 

@@ -23,13 +23,12 @@ public class EntriesEntity implements Comparable<CalendarDay> {
 
 
     public EntriesEntity(long id, Date createDate, String title,
-                         int weatherId, int moodId, boolean hasAttachment) {
+                         int weatherId, int moodId) {
         this.id = id;
         this.createDate = createDate;
         this.title = title;
         this.weatherId = weatherId;
         this.moodId = moodId;
-        this.hasAttachment = hasAttachment;
     }
 
     public void setSummary(String summary) {
@@ -52,9 +51,6 @@ public class EntriesEntity implements Comparable<CalendarDay> {
         return summary;
     }
 
-    public boolean hasAttachment() {
-        return hasAttachment;
-    }
 
     public int getWeatherId() {
         return weatherId;

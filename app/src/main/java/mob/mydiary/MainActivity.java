@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RadioButton;
 
 import java.util.ArrayList;
@@ -26,20 +25,18 @@ import mob.mydiary.Calendar.CalendarFragment;
 import mob.mydiary.Diary.DiaryFragment;
 import mob.mydiary.Entries.EntriesEntity;
 import mob.mydiary.Entries.EntriesFragment;
-import mob.mydiary.Diary.item.IDairyRow;
-import mob.mydiary.Shared.ThemeManager;
-import mob.mydiary.Shared.ScreenHelper;
+import mob.mydiary.Manager.ThemeManager;
+import mob.mydiary.Manager.ScreenHelper;
 import mob.mydiary.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private ViewPager mViewPager;
     private ViewPager ViewPager_diary_content;
 
-    private long topicId;
     private boolean hasEntries;
 
     private ScreenSlidePagerAdapter mPagerAdapter;
-    private RadioButton But_diary_topbar_entries, But_diary_topbar_calendar, But_diary_topbar_diary;
+    private RadioButton btn_entries, btn_calendar, btn_diary;
 
     private List<EntriesEntity> entriesList = new ArrayList<>();
     private final static int MAX_TEXT_LENGTH = 18;
@@ -50,13 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onPageSelected(int position) {
             switch (position) {
                 default:
-                    But_diary_topbar_entries.setChecked(true);
+                    btn_entries.setChecked(true);
                     break;
                 case 1:
-                    But_diary_topbar_calendar.setChecked(true);
+                    btn_calendar.setChecked(true);
                     break;
                 case 2:
-                    But_diary_topbar_diary.setChecked(true);
+                    btn_diary.setChecked(true);
                     break;
             }
         }
@@ -70,14 +67,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ViewPager_diary_content.setAdapter(mPagerAdapter);
         ViewPager_diary_content.addOnPageChangeListener(onPageChangeListener);
         ViewPager_diary_content.setBackground(
-                ThemeManager.getInstance().getEntriesBgDrawable(this, getTopicId()));
+                ThemeManager.getInstance().getEntriesBgDrawable(this));
         if (!hasEntries) {
             ViewPager_diary_content.setCurrentItem(2);
             //Set Default Checked Item
-            But_diary_topbar_diary.setChecked(true);
+            btn_diary.setChecked(true);
         } else {
             //Set Default Checked Item
-            But_diary_topbar_entries.setChecked(true);
+            btn_entries.setChecked(true);
         }
     }
 
@@ -89,9 +86,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         hasEntries = getIntent().getBooleanExtra("has_entries", true);
 
 
-        Button btn_entries = (Button)findViewById(R.id.btn_entries);
-        Button btn_calendar = (Button)findViewById(R.id.btn_calendar);
-        Button btn_diary = (Button)findViewById(R.id.btn_diary);
+        btn_entries = (RadioButton)findViewById(R.id.btn_entries);
+        btn_calendar = (RadioButton)findViewById(R.id.btn_calendar);
+        btn_diary = (RadioButton)findViewById(R.id.btn_diary);
 
 
 
@@ -164,10 +161,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         int tag = (int)v.getTag();
         mViewPager.setCurrentItem(tag);
-    }
-
-    public long getTopicId() {
-        return topicId;
     }
 
     public void gotoPage(int position) {
@@ -243,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         DBManager dbManager = new DBManager(this);
         dbManager.openDB();
         //Select diary info
-        Cursor diaryCursor = dbManager.selectDiaryList(getTopicId());
+        Cursor diaryCursor = dbManager.selectDiaryList();
         for (int i = 0; i < diaryCursor.getCount(); i++) {
             //get diary info
             String title = diaryCursor.getString(2);
@@ -253,21 +246,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             EntriesEntity entity = new EntriesEntity(diaryCursor.getLong(0),
                     new Date(diaryCursor.getLong(1)),
                     title.substring(0, Math.min(MAX_TEXT_LENGTH, title.length())),
-                    diaryCursor.getInt(4), diaryCursor.getInt(3),
-                    diaryCursor.getInt(5) > 0 ? true : false);
+                    diaryCursor.getInt(4), diaryCursor.getInt(3));
 
-            //select first diary content
-            Cursor diaryContentCursor = dbManager.selectDiaryContentByDiaryId(entity.getId());
-            if (diaryContentCursor != null && diaryContentCursor.getCount() > 0) {
-                String summary = "";
-                //Check content Type
-                if (diaryContentCursor.getInt(1) == IDairyRow.TYPE_TEXT) {
-                    summary = diaryContentCursor.getString(3)
-                            .substring(0, Math.min(MAX_TEXT_LENGTH, diaryContentCursor.getString(3).length()));
-                }
-                entity.setSummary(summary);
-                diaryContentCursor.close();
-            }
             //Add entity
             entriesList.add(entity);
             diaryCursor.moveToNext();

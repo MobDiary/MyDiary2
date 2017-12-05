@@ -2,6 +2,7 @@ package mob.mydiary.DB;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import mob.mydiary.DB.DBHelper;
@@ -84,6 +85,25 @@ public class DBManager {
                 , new String[]{String.valueOf(diaryId)});
     }
 
+    // 데이터베이스의 DiaryEntry Table의 모든 Row를 구한다.
+    public Cursor selectDiaryList() {
+        Cursor c = db.query(DiaryEntry.TABLE_NAME, null, null,null, null, null,
+                DiaryEntry.COLUMN_TIME + " DESC , " + DiaryEntry._ID + " DESC", null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    // DiaryEntry._ID 가 diaryId와 일치하는 Row만 구한다.
+    public Cursor selectDiaryInfoByDiaryId(long diaryId) {
+        Cursor c = db.query(DiaryEntry.TABLE_NAME, null, DiaryEntry._ID + " = ?", new String[]{String.valueOf(diaryId)},
+                null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
     private ContentValues createDiaryInfoCV(long time, String title, String content,
                                             int mood, int weather) {
         ContentValues values = new ContentValues();
