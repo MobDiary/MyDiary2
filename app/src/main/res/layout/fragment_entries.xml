@@ -32,7 +32,7 @@
             android:drawableLeft="@drawable/ic_search_white_18dp"
             android:inputType="textCapSentences"
             android:maxLines="1"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="16dp"
             android:layout_alignBottom="@+id/IV_main_setting" />
 
