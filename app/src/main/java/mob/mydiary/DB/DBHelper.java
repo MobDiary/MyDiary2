@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     DiaryEntry.COLUMN_TITLE + TEXT_TYPE + COMMA_SEP +
                     DiaryEntry.COLUMN_CONTENT + TEXT_TYPE + COMMA_SEP +
                     DiaryEntry.COLUMN_MOOD + INTEGER_TYPE + COMMA_SEP +
-                    DiaryEntry.COLUMN_WEATHER + INTEGER_TYPE + COMMA_SEP + " )";
+                    DiaryEntry.COLUMN_WEATHER + INTEGER_TYPE + " )";
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -21,6 +21,8 @@ import java.util.Calendar;
 import mob.mydiary.DB.DBHelper;
 import mob.mydiary.DB.DBManager;
 import mob.mydiary.BaseFragment;
+import mob.mydiary.Entries.EntriesFragment;
+import mob.mydiary.MainActivity;
 import mob.mydiary.Manager.TimeManager;
 import mob.mydiary.R;
 
@@ -57,6 +59,9 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
     {
         super.onCreate(savedInstanceState);
 
+        calendar = Calendar.getInstance();
+        mDBManager = new DBManager(getActivity());
+        timeManager = TimeManager.getInstance();
 
     }
 
@@ -64,10 +69,6 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.fragment_diary, container, false);
-
-
-        timeManager = TimeManager.getInstance();
-
         ScrollView_diary_content = (ScrollView) rootView.findViewById(R.id.ScrollView_diary_content);
 
 
@@ -112,6 +113,7 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
         initDiaryPage();
     }
 
+
     private void initDiaryPage() {
 
         SP_diary_mood.setSelection(0);
@@ -135,7 +137,7 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
         if (updateCurrentTime) {
             calendar.setTimeInMillis(System.currentTimeMillis());
         }
-        TV_diary_month.setText(timeManager.getDaysFullName()[calendar.get(Calendar.MONTH)]);
+        TV_diary_month.setText(timeManager.getMonthsFullName()[calendar.get(Calendar.MONTH)]);
         TV_diary_date.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         TV_diary_day.setText(timeManager.getDaysFullName()[calendar.get(Calendar.DAY_OF_WEEK) - 1]);
         TV_diary_time.setText(sdf.format(calendar.getTime()));
@@ -167,5 +169,9 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
         mDBManager.setTransactionSuccessful();
         mDBManager.endTransaction();
         mDBManager.closeDB();
+
+        setCurrentTime(true);
+        ((MainActivity) getActivity()).callEntriesListRefresh();
+        ((MainActivity) getActivity()).gotoPage(0);
     }
 }

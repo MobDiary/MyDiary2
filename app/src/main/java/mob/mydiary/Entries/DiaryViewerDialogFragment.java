@@ -93,7 +93,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
     private TextView TV_diary_title_content;
     private EditText EDT_diary_title, EDT_diary_content;
 
-    private ImageView IV_diary_close_dialog, IV_diary_location, IV_diary_photo,
+    private ImageView IV_diary_close_dialog,
             IV_diary_delete, IV_diary_clear, IV_diary_save;
     private boolean isEditMode;
 
@@ -163,13 +163,9 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         Dialog dialog = new Dialog(getActivity(), getTheme()) {
             @Override
             public void onBackPressed() {
-                if (isEditMode) {
-                    EditDiaryBackDialogFragment backDialogFragment = new EditDiaryBackDialogFragment();
-                    backDialogFragment.setTargetFragment(DiaryViewerDialogFragment.this, 0);
-                    backDialogFragment.show(getFragmentManager(), "backDialogFragment");
-                } else {
+
                     super.onBackPressed();
-                }
+
             }
         };
         // request a window without the title
@@ -203,9 +199,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         TV_diary_date = (TextView) rootView.findViewById(R.id.TV_diary_date);
         TV_diary_day = (TextView) rootView.findViewById(R.id.TV_diary_day);
         TV_diary_time = (TextView) rootView.findViewById(R.id.TV_diary_time);
-
-        IV_diary_location_name_icon = (ImageView) rootView.findViewById(R.id.IV_diary_location_name_icon);
-        TV_diary_location = (TextView) rootView.findViewById(R.id.TV_diary_location);
 
 
         IV_diary_close_dialog = (ImageView) rootView.findViewById(R.id.IV_diary_close_dialog);
@@ -353,15 +346,9 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             initMoodSpinner();
             initWeatherSpinner();
 
-
-
-            IV_diary_location.setOnClickListener(this);
-
             IV_diary_delete.setOnClickListener(this);
             IV_diary_clear.setVisibility(View.GONE);
 
-            IV_diary_photo.setImageResource(R.drawable.ic_photo_camera_white_24dp);
-            IV_diary_photo.setOnClickListener(this);
         }
 
         // 보기 모드
@@ -377,18 +364,13 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             IV_diary_weather.setVisibility(View.VISIBLE);
             TV_diary_weather.setVisibility(View.VISIBLE);
 
-            IV_diary_location_name_icon.setVisibility(View.VISIBLE);
-
             TV_diary_title_content = (TextView) rootView.findViewById(R.id.TV_diary_title_content);
             TV_diary_title_content.setVisibility(View.VISIBLE);
             TV_diary_title_content.setTextColor(ThemeManager.getInstance().getThemeMainColor(getActivity()));
 
             IV_diary_delete.setOnClickListener(this);
-            IV_diary_clear.setVisibility(View.GONE);
             IV_diary_save.setVisibility(View.GONE);
 
-            IV_diary_photo.setImageResource(R.drawable.ic_photo_white_24dp);
-            IV_diary_photo.setOnClickListener(this);
         }
     }
 

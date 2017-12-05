@@ -92,6 +92,8 @@ public class EntriesFragment extends BaseFragment implements
     public void updateEntriesData() {
         updateEntriesList();
         entriesAdapter.notifyDataSetChanged();
+
+        ((MainActivity) getActivity()).callCalendarRefresh();
     }
 
     @Override

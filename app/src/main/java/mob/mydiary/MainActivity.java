@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_diary.setTag(2);
 
         initViewPager();
-
+        loadEntries();
         mViewPager.setCurrentItem(1);
 
     }
@@ -170,6 +170,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return registeredFragments.get(position);
         }
 
+    }
+    public void callCalendarRefresh() {
+        CalendarFragment calendarFragment = ((CalendarFragment) mPagerAdapter.getRegisteredFragment(1));
+        if (calendarFragment != null) {
+            calendarFragment.refreshCalendar();
+        }
+    }
+    public void callEntriesListRefresh() {
+
+        EntriesFragment entriesFragment = ((EntriesFragment) mPagerAdapter.getRegisteredFragment(0));
+        if (entriesFragment != null) {
+            entriesFragment.updateEntriesData();
+        }
     }
 
     /**
