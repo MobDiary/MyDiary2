@@ -55,9 +55,7 @@ import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LOCATION_SERVICE;
-/**
- * Created by daxia on 2016/10/27.
- */
+
 
 public class DiaryViewerDialogFragment extends DialogFragment implements View.OnClickListener,
         DiaryDeleteDialogFragment.DeleteCallback, CopyDiaryToEditCacheTask.EditTaskCallBack,
@@ -94,9 +92,8 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
     private Spinner SP_diary_weather, SP_diary_mood;
 
     private TextView TV_diary_title_content;
-    private EditText EDT_diary_title;
+    private EditText EDT_diary_title, EDT_diary_content;
 
-    private LinearLayout LL_diary_item_content;
     private ImageView IV_diary_close_dialog, IV_diary_location, IV_diary_photo,
             IV_diary_delete, IV_diary_clear, IV_diary_save;
     private boolean isEditMode;
@@ -201,6 +198,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         PB_diary_item_content_hint = (ProgressBar) rootView.findViewById(R.id.PB_diary_item_content_hint);
 
         EDT_diary_title = (EditText) rootView.findViewById(R.id.EDT_diary_title);
+        EDT_diary_content = (EditText) rootView.findViewById(R.id.EDT_diary_content);
 
         TV_diary_month = (TextView) rootView.findViewById(R.id.TV_diary_month);
         TV_diary_date = (TextView) rootView.findViewById(R.id.TV_diary_date);
@@ -221,7 +219,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         IV_diary_save = (ImageView) rootView.findViewById(R.id.IV_diary_save);
 
         initView(rootView);
-        diaryItemHelper = new DiaryItemHelper(LL_diary_item_content);
         noLocation = getString(R.string.diary_no_location);
 
         return rootView;
@@ -247,7 +244,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
                     @Override
                     public void run() {
                         //Copy the file into editCash
-                        mTask.execute(((MainActivity) getActivity()).getTopicId(), diaryId);
+                        mTask.execute(diaryId);
                     }
                 }, 700);
             } else {
@@ -312,35 +309,28 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         //load Time
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(diaryInfoCursor.getLong(1));
-        timeTools = TimeTools.getInstance(getActivity().getApplicationContext());
+        timeTools = TimeManager.getInstance();
         sdf = new SimpleDateFormat("HH:mm");
         setDiaryTime();
+
+        // 편집하는 모드라면
         if (isEditMode) {
             //Allow to edit diary
             LL_diary_time_information.setOnClickListener(this);
             EDT_diary_title.setText(diaryInfoCursor.getString(2));
-        } else {
+        }
+
+        // 일반 보는 모드
+        else {
             String diaryTitleStr = diaryInfoCursor.getString(2);
             if (diaryTitleStr == null || diaryTitleStr.equals("")) {
                 diaryTitleStr = getString(R.string.diary_no_title);
             }
             TV_diary_title_content.setText(diaryTitleStr);
         }
-        //load location
-        String locationName = diaryInfoCursor.getString(7);
-        if (locationName != null && !"".equals(locationName)) {
-            haveLocation = true;
-            IV_diary_location_name_icon.setVisibility(View.VISIBLE);
-            TV_diary_location.setText(locationName);
-        } else {
-            haveLocation = false;
-            IV_diary_location_name_icon.setVisibility(View.VISIBLE);
-        }
-        initLocationIcon();
-        setIcon(diaryInfoCursor.getInt(3), diaryInfoCursor.getInt(4));
+        setIcon(diaryInfoCursor.getInt(4), diaryInfoCursor.getInt(5));
         diaryInfoCursor.close();
         //Get diary detail
-        loadDiaryItemContent(dbManager);
         dbManager.closeDB();
     }
 
@@ -406,44 +396,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         SP_diary_weather.setAdapter(weatherArrayAdapter);
     }
 
-    private void loadDiaryItemContent(DBManager dbManager) {
-        Cursor diaryContentCursor = dbManager.selectDiaryContentByDiaryId(diaryId);
-        //To count how many photo is in the diary on view mode.
-        int photoCount = 0;
-        for (int i = 0; i < diaryContentCursor.getCount(); i++) {
-            IDairyRow diaryItem = null;
-            String content = "";
-            if (diaryContentCursor.getInt(1) == IDairyRow.TYPE_PHOTO) {
-                diaryItem = new DiaryPhoto(getActivity());
-                content = FileManager.FILE_HEADER +
-                        diaryFileManager.getDirAbsolutePath() + "/" + diaryContentCursor.getString(3);
-                if (isEditMode) {
-                    diaryItem.setEditMode(true);
-                    ((DiaryPhoto) diaryItem).setDeleteClickListener(this);
-                    //For get the right file name
-                    ((DiaryPhoto) diaryItem).setPhotoFileName(diaryContentCursor.getString(3));
-                } else {
-                    diaryItem.setEditMode(false);
-                    ((DiaryPhoto) diaryItem).setDraweeViewClickListener(this);
-                    ((DiaryPhoto) diaryItem).setDraweeViewPositionTag(photoCount);
-                    photoCount++;
-                    diaryPhotoFileList.add(Uri.parse(content));
-                }
-            } else if (diaryContentCursor.getInt(1) == IDairyRow.TYPE_TEXT) {
-                diaryItem = new DiaryText(getActivity());
-                content = diaryContentCursor.getString(3);
-                if (!isEditMode) {
-                    diaryItem.setEditMode(false);
-                }
-            }
-            diaryItem.setContent(content);
-            diaryItem.setPosition(i);
-            diaryItemHelper.createItem(diaryItem);
-            diaryContentCursor.moveToNext();
-        }
-        diaryContentCursor.close();
-    }
-
     private void initProgressDialog() {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.process_dialog_loading));
@@ -477,60 +429,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         }
     }
 
-    private void loadFileFromTemp(String fileName) {
-        try {
-            String tempFileSrc = FileManager.FILE_HEADER + diaryFileManager.getDirAbsolutePath() + "/" + fileName;
-            DiaryPhoto diaryPhoto = new DiaryPhoto(getActivity());
-            diaryPhoto.setPhoto(Uri.parse(tempFileSrc), fileName);
-            DiaryTextTag tag = checkoutOldDiaryContent();
-            //Check edittext is focused
-            if (tag != null) {
-                //Add new edittext
-                DiaryText diaryText = new DiaryText(getActivity());
-                diaryText.setPosition(tag.getPositionTag());
-                diaryText.setContent(tag.getNextEditTextStr());
-                diaryItemHelper.createItem(diaryText, tag.getPositionTag() + 1);
-                diaryText.getView().requestFocus();
-                //Add photo
-                diaryPhoto.setPosition(tag.getPositionTag() + 1);
-                diaryPhoto.setDeleteClickListener(this);
-                diaryItemHelper.createItem(diaryPhoto, tag.getPositionTag() + 1);
-            } else {
-                //Add photo
-                diaryPhoto.setPosition(diaryItemHelper.getItemSize());
-                diaryPhoto.setDeleteClickListener(this);
-                diaryItemHelper.createItem(diaryPhoto);
-                //Add new edittext
-                DiaryText diaryText = new DiaryText(getActivity());
-                diaryText.setPosition(diaryItemHelper.getItemSize());
-                diaryItemHelper.createItem(diaryText);
-                diaryText.getView().requestFocus();
-            }
-        } catch (Exception e) {
-            Log.e(TAG, e.toString());
-            Toast.makeText(getActivity(), getString(R.string.toast_photo_path_error), Toast.LENGTH_LONG).show();
-        } finally {
-            diaryItemHelper.resortPosition();
-        }
-    }
-
-    private DiaryTextTag checkoutOldDiaryContent() {
-        View focusView = getDialog().getCurrentFocus();
-        DiaryTextTag tag = null;
-        if (focusView instanceof EditText && focusView.getTag() != null &&
-                focusView.getTag() instanceof DiaryTextTag) {
-            EditText currentEditText = (EditText) focusView;
-            tag = (DiaryTextTag) focusView.getTag();
-            if (currentEditText.getText().toString().length() > 0) {
-                int index = currentEditText.getSelectionStart();
-                String nextEditTextStr = currentEditText.getText().toString()
-                        .substring(index, currentEditText.getText().toString().length());
-                currentEditText.getText().delete(index, currentEditText.getText().toString().length());
-                tag.setNextEditTextStr(nextEditTextStr);
-            }
-        }
-        return tag;
-    }
 
     private void updateDiary() {
 
@@ -548,15 +446,9 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
     }
 
-    @Override
     public void onDiaryUpdated() {
         this.dismissAllowingStateLoss();
         callback.updateDiary();
-    }
-
-    @Override
-    public void onCopyCompiled(String fileName) {
-        loadFileFromTemp(fileName);
     }
 
 
@@ -566,7 +458,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         dismiss();
     }
 
-    @Override
     public void onBack() {
         dismiss();
     }
@@ -624,11 +515,9 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
                 diaryDeleteDialogFragment.show(getFragmentManager(), "diaryDeleteDialogFragment");
                 break;
             case R.id.IV_diary_save:
-                if (diaryItemHelper.getItemSize() > 0) {
-                    updateDiary();
-                } else {
-                    Toast.makeText(getActivity(), getString(R.string.toast_diary_empty), Toast.LENGTH_SHORT).show();
-                }
+                updateDiary();
+                Toast.makeText(getActivity(), getString(R.string.toast_diary_insert_successful), Toast.LENGTH_SHORT).show();
+
                 break;
         }
     }
