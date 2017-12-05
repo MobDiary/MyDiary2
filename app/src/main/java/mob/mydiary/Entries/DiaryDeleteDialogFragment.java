@@ -29,12 +29,10 @@ public class DiaryDeleteDialogFragment extends CommonDialogFragment {
     }
 
     private long diaryId;
-    private long topicId;
 
-    public static DiaryDeleteDialogFragment newInstance(long topicId, long diaryId) {
+    public static DiaryDeleteDialogFragment newInstance(long diaryId) {
         Bundle args = new Bundle();
         DiaryDeleteDialogFragment fragment = new DiaryDeleteDialogFragment();
-        args.putLong("topicId", topicId);
         args.putLong("diaryId", diaryId);
         fragment.setArguments(args);
         return fragment;
@@ -61,7 +59,6 @@ public class DiaryDeleteDialogFragment extends CommonDialogFragment {
         callback = (DeleteCallback) getTargetFragment();
         this.getDialog().setCanceledOnTouchOutside(false);
         super.onViewCreated(view, savedInstanceState);
-        topicId = getArguments().getLong("topicId", -1L);
         diaryId = getArguments().getLong("diaryId", -1L);
         this.TV_common_content.setText(getString(R.string.entries_edit_dialog_delete_content));
     }

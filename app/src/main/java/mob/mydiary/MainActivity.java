@@ -68,14 +68,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ViewPager_diary_content.addOnPageChangeListener(onPageChangeListener);
         ViewPager_diary_content.setBackground(
                 ThemeManager.getInstance().getEntriesBgDrawable(this));
-        if (!hasEntries) {
-            ViewPager_diary_content.setCurrentItem(2);
-            //Set Default Checked Item
-            btn_diary.setChecked(true);
-        } else {
-            //Set Default Checked Item
-            btn_entries.setChecked(true);
-        }
+        ViewPager_diary_content.setCurrentItem(1);
+
+        btn_calendar.setChecked(true);
+
     }
 
     @Override
@@ -90,33 +86,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_calendar = (RadioButton)findViewById(R.id.btn_calendar);
         btn_diary = (RadioButton)findViewById(R.id.btn_diary);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
         btn_entries.setOnClickListener(this);
         btn_entries.setTag(0);
+
         btn_calendar.setOnClickListener(this);
         btn_calendar.setTag(1);
+
         btn_diary.setOnClickListener(this);
         btn_diary.setTag(2);
 
         initViewPager();
 
-        mViewPager.setCurrentItem(0);
+        mViewPager.setCurrentItem(1);
 
     }
     @Override
