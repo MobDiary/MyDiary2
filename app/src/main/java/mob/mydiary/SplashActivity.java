@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import mob.mydiary.Diary.MainActivity;
+import mob.mydiary.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
     public final int DelayTime = 2000;

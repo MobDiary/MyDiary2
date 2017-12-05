@@ -1,4 +1,4 @@
-package mob.mydiary.Diary.Diary;
+package mob.mydiary.Diary;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+<<<<<<< HEAD:app/src/main/java/mob/mydiary/Diary/Diary/DiaryFragment.java
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -24,6 +25,9 @@ import mob.mydiary.DB.DBHelper;
 import mob.mydiary.DB.DBManager;
 import mob.mydiary.Diary.BaseFragment;
 import mob.mydiary.Manager.TimeManager;
+=======
+import mob.mydiary.BaseFragment;
+>>>>>>> 21e75ab3d441e4792a889614755f3dd276323c4a:app/src/main/java/mob/mydiary/Diary/DiaryFragment.java
 import mob.mydiary.R;
 import mob.mydiary.Diary.Diary.picker.DatePickerFragment;
 import mob.mydiary.Diary.Diary.picker.TimePickerFragment;
