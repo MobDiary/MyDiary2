@@ -1,6 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Mydiary</string>
+    <string name="app_name">MyDiary</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Release Note-->
+    <string name="release_note_title">Release note</string>
+    <string name="release_note">**0.3.0.170424_1_A\n
+        -Fix bug\n
+        -Support simple photo function\n
+        -Modify layout\n\n
+        **0.2.9.170416_1_AH\n
+        -fix bug\n\n
+        **0.2.9.170406_1_A\n
+        -Support auto temp save for diary \n
+        -Add cloudy option to share backup file\n
+        -Add OOBE\n
+        -Fix bug\n\n
+        **0.2.8.170323_1_AH\n
+        -Fix file issue on Android N\n
+        -Merge Thai patch\n\n
+        **0.2.8.170319_1_A\n
+        -Fix error when memory is low\n
+        -Fix bug\n
+        -Modify layout\n
+        -Implement search for topic\n
+        -Add month mode and fix bug in calendar\n\n
+        **0.2.7.170219_1_A\n
+        -Now it is alpha version :)\n
+        -Support simple backup\n
+        -Optimizing add and show photo in diary\n
+        -Fix calendar shadow bug on Android 4.2\n
+        (If your device still have calendar issue , send mail for me!)\n
+        -Fix click fail on topic list\n\n
+    </string>
+    <string name="release_note_close_remind">Don\'t show again</string>
+
+    <!--Topic detail-->
+    <string name="topic_detail_name">Topic name</string>
+    <string name="topic_detail_text_color">Text color</string>
+    <string name="topic_dialog_delete_title">Delete</string>
+    <string name="topic_dialog_delete_content">Do you want to delete %1$s?</string>
+
+    <string name="toast_topic_empty">Topic name is empty</string>
+    <string name="topic_topic_bg_fail">To change background of topic fail&#8230;</string>
+
+    <string name="topic_detail_current_bg">Topic background</string>
+    <string name="topic_detail_default_bg">default background</string>
+
+    <!--Dialog -->
+    <string name="dialog_button_ok">Ok</string>
+    <string name="dialog_button_call">Call</string>
+    <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_button_delete">Delete</string>
+
+    <string name="process_dialog_loading">Loading&#8230;</string>
+    <string name="process_dialog_saving">Saving&#8230;</string>
+
+    <!--MainActivity-->
+    <string name="segmented_entries">Entries</string>
+    <string name="segmented_calendar">Calendar</string>
+    <string name="segmented_Diary">Diary</string>
+    <string name="diary_back_message">There are a diary in editing, do you want to leave it?</string>
+
+    <!--Entries -->
+    <plurals name="entries_count">
+        <item quantity="one">%1$d Entry</item>
+        <item quantity="other">%1$d Entries</item>
+    </plurals>
+    <string name="entries_edit_view">Click diary for editing</string>
+    <string name="entries_edit_dialog_delete_content">Do you really want to delete this diary?</string>
+    <string name="entries_summary_photo">**photo**</string>
+
+    <string name="toast_diary_long_click_edit">Editing&#8230;</string>
+
+    <!--Diary -->
+    <string name="diary_no_location">No Location</string>
+    <string name="diary_location_permission_title">Permission</string>
+    <string name="diary_location_permission_content">Need permission to get location name</string>
+    <string name="diary_photo_permission_content">Need permission to add photo</string>
+
+    <string name="diary_title_hint">Diary title</string>
+    <string name="diary_content_hint">Write your diary here</string>
+    <string name="diary_clear_message">do you want to delete it?</string>
+
+    <string name="diary_no_title">No Title</string>
+
+
+    <string name="toast_diary_empty">Diary is empty</string>
+
+    <string name="toast_not_image">The file is not a image</string>
+    <string name="toast_photo_path_error">Photo path has some problem</string>
+    <string name="toast_photo_intent_error">To get image resource of device fail</string>
+    <string name="toast_max_photo">Max selected photo is %1$d</string>
+    <string name="toast_space_insufficient">Free space insufficient</string>
+    <string name="toast_diary_update_successful">Updating diary successful</string>
+    <string name="toast_diary_update_fail">Updating diary fail</string>
+    <string name="toast_diary_insert_successful">Diary was inserted successfully</string>
+    <string name="toast_diary_insert_fail">Diary was inserted unsuccessfully&#8230;</string>
+
+    <!--Diary Viewer edit-->
+    <string name="toast_diary_copy_to_edit_fail">Reading photo data fail&#8230;</string>
+
+    <!--Contacts-->
+    <string name="contacts_call_phone_permission_title">Permission</string>
+    <string name="contacts_call_phone_permission_content">Need permission to call phone</string>
+    <string name="contacts_call_phone_no_call_function">Your device can\'t call phone</string>
+
+    <string name="contacts_detail_edt_name">Name</string>
+    <string name="contacts_detail_edt_phone_number">Phone</string>
+
+    <string name="toast_contacts_empty">Contacts is empty!</string>
+
+    <!--Back event-->
+    <string name="main_activity_exit_app">Click back button again to close</string>
+
+    <!--OOBE-->
+    <string name="oobe_next_button">Next</string>
+
+    <string name="oobe_main_your_name_title">Your name</string>
+    <string name="oobe_main_your_name_content">You can set your personal information.</string>
+    <string name="oobe_main_topic_list_title">Topic list</string>
+    <string name="oobe_main_topic_list_content">Your personal diary, memo or contacts!\nSwipe it to edit or delete.\n(The default Japanese data is from movie, you can delete it)</string>
+    <string name="oobe_main_search_title">Search</string>
+    <string name="oobe_main_search_content">You can search some topic.</string>
+    <string name="oobe_main_adv_setting_title">Advanced setting.</string>
+    <string name="oobe_main_adv_setting_content">Open the advanced settings.\nIncluding create topic, app setting, passcode, backup and about.</string>
+    <string name="oobe_main_mydiary_title">MyDiary</string>
+    <string name="oobe_main_mydiary_content">Either you\'ve seen the movie or not,\nI hope you\'ll enjoy this app.\nWrite the story of your name now!</string>
+
+    <!--Photo viewer-->
+    <string name="photo_viewer_topic_fail">get diary fail</string>
+    <string name="photo_viewer_photo_path_fail">get photo path fail</string>
+    <string name="photo_viewer_no_images">No images</string>
 </resources>
