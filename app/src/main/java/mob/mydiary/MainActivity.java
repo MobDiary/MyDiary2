@@ -15,6 +15,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +27,7 @@ import mob.mydiary.Diary.DiaryFragment;
 import mob.mydiary.Entries.EntriesEntity;
 import mob.mydiary.Entries.EntriesFragment;
 import mob.mydiary.Diary.item.IDairyRow;
+import mob.mydiary.Shared.ThemeManager;
 import mob.mydiary.Shared.ScreenHelper;
 import mob.mydiary.R;
 
@@ -33,19 +35,58 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager mViewPager;
     private ViewPager ViewPager_diary_content;
 
-
     private long topicId;
+    private boolean hasEntries;
 
     private ScreenSlidePagerAdapter mPagerAdapter;
+    private RadioButton But_diary_topbar_entries, But_diary_topbar_calendar, But_diary_topbar_diary;
 
     private List<EntriesEntity> entriesList = new ArrayList<>();
     private final static int MAX_TEXT_LENGTH = 18;
+
+
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
+        @Override
+        public void onPageSelected(int position) {
+            switch (position) {
+                default:
+                    But_diary_topbar_entries.setChecked(true);
+                    break;
+                case 1:
+                    But_diary_topbar_calendar.setChecked(true);
+                    break;
+                case 2:
+                    But_diary_topbar_diary.setChecked(true);
+                    break;
+            }
+        }
+    };
+
+    private void initViewPager() {
+        ViewPager_diary_content = (ViewPager) findViewById(R.id.VP_ViewPage);
+        //Make viewpager load one fragment every time.
+        ViewPager_diary_content.setOffscreenPageLimit(2);
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        ViewPager_diary_content.setAdapter(mPagerAdapter);
+        ViewPager_diary_content.addOnPageChangeListener(onPageChangeListener);
+        ViewPager_diary_content.setBackground(
+                ThemeManager.getInstance().getEntriesBgDrawable(this, getTopicId()));
+        if (!hasEntries) {
+            ViewPager_diary_content.setCurrentItem(2);
+            //Set Default Checked Item
+            But_diary_topbar_diary.setChecked(true);
+        } else {
+            //Set Default Checked Item
+            But_diary_topbar_entries.setChecked(true);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
         mViewPager = (ViewPager)findViewById(R.id.VP_ViewPage);
+        hasEntries = getIntent().getBooleanExtra("has_entries", true);
 
 
         Button btn_entries = (Button)findViewById(R.id.btn_entries);
