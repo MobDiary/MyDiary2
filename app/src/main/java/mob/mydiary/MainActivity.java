@@ -90,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_calendar = (RadioButton)findViewById(R.id.btn_calendar);
         btn_diary = (RadioButton)findViewById(R.id.btn_diary);
 
-
-
-        mViewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener()
         {
             @Override
@@ -117,43 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_diary.setOnClickListener(this);
         btn_diary.setTag(2);
 
+        initViewPager();
+
         mViewPager.setCurrentItem(0);
-
-    }
-
-
-    public class MyPagerAdapter extends FragmentStatePagerAdapter
-    {
-        Context context;
-        public MyPagerAdapter(FragmentManager fm)
-        {
-            super(fm);
-        }
-
-        @Override
-        public BaseFragment getItem(int position) {
-            BaseFragment fragment;
-            switch(position)
-            {
-                case 0:
-                    fragment = new EntriesFragment();
-                    break;
-                case 1:
-                    fragment = new CalendarFragment();
-                    break;
-                case 2:
-                    fragment = new DiaryFragment();
-                    break;
-                default:
-                    return null;
-            }
-            return fragment;
-        }
-        @Override
-        public int getCount()
-        {
-            return 3;
-        }
 
     }
     @Override
