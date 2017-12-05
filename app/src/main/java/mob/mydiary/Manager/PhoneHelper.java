@@ -7,12 +7,6 @@ import android.support.annotation.IntDef;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-/**
- * Created by daxia on 2016/12/7.
- * Ref:https://github.com/zouzhenglu/zouzhenglu.github.io
- * This class does not test in MIUI & FLYME.
- */
-
 public class PhoneHelper {
 
     @IntDef({

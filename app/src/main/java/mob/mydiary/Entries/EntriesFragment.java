@@ -13,33 +13,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import mob.mydiary.Entries.DiaryViewerDialogFragment;
-import mob.mydiary.Entries.EntriesAdapter;
 import mob.mydiary.R;
 import mob.mydiary.BaseFragment;
 import mob.mydiary.MainActivity;
 import mob.mydiary.Manager.ThemeManager;
-import mob.mydiary.Manager.ViewTools;
-
 
 public class EntriesFragment extends BaseFragment implements
         DiaryViewerDialogFragment.DiaryViewerCallback, View.OnClickListener {
 
-    /**
-     * UI
-     */
+    // UI
     private RelativeLayout RL_main_bottom_bar;
     private TextView TV_entries_edit_msg;
     private ImageView IV_main_setting;
-    /**
-     * RecyclerView
-     */
+
     private RecyclerView RecyclerView_entries;
     private EntriesAdapter entriesAdapter;
 
-    public EntriesFragment() {
-        // Required empty public constructor
-    }
+    public EntriesFragment() { }
 
 
     @Override
@@ -76,7 +66,6 @@ public class EntriesFragment extends BaseFragment implements
         RecyclerView_entries.setLayoutManager(lmr);
         entriesAdapter = new EntriesAdapter(EntriesFragment.this, getEntriesList());
         RecyclerView_entries.setAdapter(entriesAdapter);
-        //true for close all view
         setBottomBarUI();
     }
 

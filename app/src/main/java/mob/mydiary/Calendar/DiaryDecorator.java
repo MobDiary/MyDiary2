@@ -8,9 +8,6 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 import java.util.Collection;
 import java.util.HashSet;
 
-/**
- * Decorate several days with a dot
- */
 public class DiaryDecorator implements DayViewDecorator {
 
     private int color;

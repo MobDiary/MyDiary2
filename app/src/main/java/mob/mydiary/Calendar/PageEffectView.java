@@ -24,7 +24,6 @@ import mob.mydiary.Manager.PhoneHelper;
 
 import java.util.Calendar;
 
-//Ref: http://blog.csdn.net/hmg25/article/details/6419694
 public class PageEffectView extends View {
 
     private CalendarFactory calendarFactory;

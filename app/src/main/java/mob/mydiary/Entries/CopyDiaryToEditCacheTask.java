@@ -9,10 +9,6 @@ import mob.mydiary.Manager.FileManager;
 
 import java.io.File;
 
-/**
- * Created by daxia on 2016/11/21.
- */
-
 public class CopyDiaryToEditCacheTask extends AsyncTask<Long, Void, Integer> {
 
     public interface EditTaskCallBack {

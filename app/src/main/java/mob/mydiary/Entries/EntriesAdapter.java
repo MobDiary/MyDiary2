@@ -159,10 +159,6 @@ public class EntriesAdapter extends RecyclerView.Adapter<EntriesAdapter.EntriesV
             return IV_entries_item_mood;
         }
 
-        public ImageView getIVBookmark() {
-            return IV_entries_item_bookmark;
-        }
-
         public TextView getHeader() {
             return TV_entries_item_header;
         }

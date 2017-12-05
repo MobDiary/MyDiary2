@@ -2,10 +2,6 @@ package mob.mydiary.DB;
 
 import android.provider.BaseColumns;
 
-/**
- * Created by juyeong on 2017-12-06.
- */
-
 public class DBStructure {
     public static abstract class DiaryEntry implements BaseColumns {
         public static final String TABLE_NAME = "diary_entry";

@@ -7,10 +7,6 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by daxia on 2016/10/17.
- */
-
 public class EntriesEntity implements Comparable<CalendarDay> {
 
     private long id;
@@ -19,7 +15,6 @@ public class EntriesEntity implements Comparable<CalendarDay> {
     private String summary;
     private int weatherId;
     private int moodId;
-    private boolean hasAttachment;
 
 
     public EntriesEntity(long id, Date createDate, String title,
