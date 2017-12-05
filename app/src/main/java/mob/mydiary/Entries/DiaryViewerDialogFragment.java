@@ -247,7 +247,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
                     }
                 }, 700);
             } else {
-                diaryFileManager = new FileManager(getActivity(), ((MainActivity) getActivity()).getTopicId(), diaryId);
+                diaryFileManager = new FileManager(getActivity());
                 diaryPhotoFileList = new ArrayList<>();
                 initData();
             }
@@ -508,7 +508,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
                 break;
             case R.id.IV_diary_delete:
                 DiaryDeleteDialogFragment diaryDeleteDialogFragment =
-                        DiaryDeleteDialogFragment.newInstance(((MainActivity) getActivity()).get(), diaryId);
+                        DiaryDeleteDialogFragment.newInstance(diaryId);
                 diaryDeleteDialogFragment.setTargetFragment(this, 0);
                 diaryDeleteDialogFragment.show(getFragmentManager(), "diaryDeleteDialogFragment");
                 break;
