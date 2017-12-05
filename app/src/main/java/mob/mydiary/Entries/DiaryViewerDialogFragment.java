@@ -623,9 +623,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
                 diaryDeleteDialogFragment.setTargetFragment(this, 0);
                 diaryDeleteDialogFragment.show(getFragmentManager(), "diaryDeleteDialogFragment");
                 break;
-            case R.id.IV_diary_clear:
-                dismiss();
-                break;
             case R.id.IV_diary_save:
                 if (diaryItemHelper.getItemSize() > 0) {
                     updateDiary();
