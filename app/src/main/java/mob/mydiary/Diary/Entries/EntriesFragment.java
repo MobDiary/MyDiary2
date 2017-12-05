@@ -26,7 +26,7 @@ public class EntriesFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_entries, container, false);
-        return layout;
+        View rootView = inflater.inflate(R.layout.fragment_entries, container, false);
+        return rootView;
     }
 }

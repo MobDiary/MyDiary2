@@ -26,8 +26,8 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_diary, container, false);
-        return layout;
+        View rootView = inflater.inflate(R.layout.fragment_diary, container, false);
+        return rootView;
     }
 
     @Override
