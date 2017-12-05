@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/RL_calendar_content_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:id="@+id/RL_calendar_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"
+            android:background="@color/colorPrimary"
+            android:gravity="center" />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/RL_calendar_edit_bar"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/IV_calendar_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+
+        <ImageView
+            android:id="@+id/IV_calendar_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/IV_calendar_menu" />
+
+        <ImageView
+            android:id="@+id/IV_calendar_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@id/IV_calendar_edit" />
+
+    </RelativeLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/FAB_calendar_change_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/RL_calendar_edit_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        app:backgroundTint="@android:color/white"
+        app:fabSize="mini" />
+
+
+</RelativeLayout>
