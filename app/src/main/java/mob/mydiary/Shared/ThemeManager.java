@@ -20,8 +20,6 @@ public class ThemeManager {
 
     public final static String CUSTOM_TOPIC_BG_FILENAME = "custom_topic_bg";
 
-
-    //Default color is TAKI
     public int currentTheme = CUSTOM;
 
     private static ThemeManager instance = null;
