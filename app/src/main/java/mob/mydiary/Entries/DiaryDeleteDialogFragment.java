@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import mob.mydiary.R;
-import mob.mydiary.db.DBManager;
+import mob.mydiary.DB.DBManager;
 import mob.mydiary.Shared.FileManager;
 import mob.mydiary.Shared.gui.CommonDialogFragment;
 
@@ -43,7 +43,7 @@ public class DiaryDeleteDialogFragment extends CommonDialogFragment {
     private void deleteDiary() {
         //Delete the db
         DBManager dbManager = new DBManager(getActivity());
-        dbManager.opeDB();
+        dbManager.openDB();
         dbManager.delDiary(diaryId);
         dbManager.closeDB();
         //Delete photo data

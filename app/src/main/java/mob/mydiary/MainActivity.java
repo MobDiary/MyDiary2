@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import mob.mydiary.db.*;
+import mob.mydiary.DB.*;
 import mob.mydiary.Calendar.CalendarFragment;
 import mob.mydiary.Diary.DiaryFragment;
 import mob.mydiary.Entries.EntriesEntity;
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void loadEntries() {
         entriesList.clear();
         DBManager dbManager = new DBManager(this);
-        dbManager.opeDB();
+        dbManager.openDB();
         //Select diary info
         Cursor diaryCursor = dbManager.selectDiaryList(getTopicId());
         for (int i = 0; i < diaryCursor.getCount(); i++) {

@@ -39,15 +39,6 @@ public class ThemeManager {
         return instance;
     }
 
-
-    public int getTopicBgWithoutEditBarHeight(Context context) {
-        int topbarHeight = context.getResources().getDimensionPixelOffset(R.dimen.top_bar_height);
-        int withoutEditBarHeight = ScreenHelper.getScreenHeight(context) -
-                //diary activity top bar
-                topbarHeight;
-        return withoutEditBarHeight;
-    }
-
     public void saveTheme(Context context, int themeId) {
         SPFManager.setTheme(context, themeId);
     }
@@ -78,17 +69,15 @@ public class ThemeManager {
      * Any theme using the same topic bg , if it exist.
      *
      * @param context
-     * @param topicId
      * @return
      */
 
 
-    public Drawable getEntriesBgDrawable(Context context, long topicId) {
+    public Drawable getEntriesBgDrawable(Context context) {
         Drawable bgDrawable;
         FileManager diaryFM = new FileManager(context, FileManager.DIARY_ROOT_DIR);
         File entriesBg = new File(
                 diaryFM.getDirAbsolutePath()
-                        + "/" + topicId
                         + "/" + CUSTOM_TOPIC_BG_FILENAME);
         if (entriesBg.exists()) {
             bgDrawable = Drawable.createFromPath(entriesBg.getAbsolutePath());

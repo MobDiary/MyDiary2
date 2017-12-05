@@ -12,15 +12,6 @@ public class SPFManager {
      * config
      */
     private static final String SPF_CONFIG = "CONFIG";
-    //Local language
-    private static final String CONFIG_LOCAL_LANGUAGE = "CONFIG_LOCAL_LANGUAGE";
-    /**
-     * profile
-     */
-    private static final String SPF_PROFILE = "PROFILE";
-    private static final String PROFILE_YOUR_NAME_IS = "YOUR_NAME_IS";
-    private static final String PROFILE_MAIN_PAGE_BANNER_BG = "PROFILE_MAIN_PAGE_BANNER_BG";
-
     /**
      * Theme
      */
@@ -56,53 +47,6 @@ public class SPFManager {
     private static final String DIARY_AUTO_SAVE = "DIARY_AUTO_SAVE_";
 
     /**
-     * Config method
-     */
-
-    public static int getLocalLanguageCode(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(SPF_CONFIG, 0);
-        //default is 0 , follow the system
-        return settings.getInt(CONFIG_LOCAL_LANGUAGE, 0);
-    }
-
-    public static void setLocalLanguageCode(Context context, int languageCode) {
-        SharedPreferences settings = context.getSharedPreferences(SPF_CONFIG, 0);
-        SharedPreferences.Editor PE = settings.edit();
-        PE.putInt(CONFIG_LOCAL_LANGUAGE, languageCode);
-        PE.commit();
-    }
-
-    /**
-     * Profile method
-     */
-
-    public static String getYourName(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(SPF_PROFILE, 0);
-        //default is space
-        return settings.getString(PROFILE_YOUR_NAME_IS, "");
-    }
-
-    public static void setYourName(Context context, String yourNameIs) {
-        SharedPreferences settings = context.getSharedPreferences(SPF_PROFILE, 0);
-        SharedPreferences.Editor PE = settings.edit();
-        PE.putString(PROFILE_YOUR_NAME_IS, yourNameIs);
-        PE.commit();
-    }
-
-    public static boolean hasCustomProfileBannerBg(Context context) {
-        SharedPreferences settings = context.getSharedPreferences(SPF_PROFILE, 0);
-        //default is space
-        return settings.getBoolean(PROFILE_MAIN_PAGE_BANNER_BG, false);
-    }
-
-    public static void setCustomProfileBannerBg(Context context, boolean customProfileBg) {
-        SharedPreferences settings = context.getSharedPreferences(SPF_PROFILE, 0);
-        SharedPreferences.Editor PE = settings.edit();
-        PE.putBoolean(PROFILE_MAIN_PAGE_BANNER_BG, customProfileBg);
-        PE.commit();
-    }
-
-    /**
      * Theme method
      */
 
@@ -132,7 +76,6 @@ public class SPFManager {
                 context.getResources().getColor(R.color.themeColor_custom_default));
     }
 
-
     /**
      * System method
      */
@@ -160,7 +103,4 @@ public class SPFManager {
         SharedPreferences settings = context.getSharedPreferences(SPF_SYSTEM, 0);
         return settings.getBoolean(FIRST_RUN, true);
     }
-
-
-
 }

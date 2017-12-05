@@ -22,7 +22,9 @@ import java.util.Calendar;
 
 import mob.mydiary.DB.DBHelper;
 import mob.mydiary.DB.DBManager;
-import mob.mydiary.Diary.BaseFragment;
+import mob.mydiary.BaseFragment;
+import mob.mydiary.Diary.Diary.DiaryInfoHelper;
+import mob.mydiary.Diary.Diary.ImageArrayAdapter;
 import mob.mydiary.Manager.TimeManager;
 import mob.mydiary.BaseFragment;
 import mob.mydiary.R;
@@ -161,7 +163,7 @@ public class DiaryFragment extends BaseFragment implements View.OnClickListener{
         mDBManager.openDB();
         mDBManager.beginTransaction();
 
-        mDBManager.insertDiaryInfo(calendar.getTimeInMillis(),EDT_diary_title.getText().toString(),
+        mDBManager.insertDiaryInfo(calendar.getTimeInMillis(), EDT_diary_title.getText().toString(),
                 EDT_diary_content.getText().toString(),
                 SP_diary_mood.getSelectedItemPosition(),
                 SP_diary_weather.getSelectedItemPosition());
