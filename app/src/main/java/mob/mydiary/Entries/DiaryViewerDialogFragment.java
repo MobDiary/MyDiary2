@@ -59,7 +59,6 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class DiaryViewerDialogFragment extends DialogFragment implements View.OnClickListener,
         DiaryDeleteDialogFragment.DeleteCallback, CopyDiaryToEditCacheTask.EditTaskCallBack,
-        UpdateDiaryTask.UpdateDiaryCallBack, EditDiaryBackDialogFragment.BackDialogCallback,
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     /**
@@ -335,6 +334,8 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
     }
 
     private void initView(View rootView) {
+
+        // 수정모드
         if (isEditMode) {
             initProgressDialog();
 
@@ -351,6 +352,9 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
             initMoodSpinner();
             initWeatherSpinner();
+
+
+
             IV_diary_location.setOnClickListener(this);
 
             IV_diary_delete.setOnClickListener(this);
@@ -358,7 +362,10 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
             IV_diary_photo.setImageResource(R.drawable.ic_photo_camera_white_24dp);
             IV_diary_photo.setOnClickListener(this);
-        } else {
+        }
+
+        // 보기 모드
+        else {
             EDT_diary_title.setVisibility(View.GONE);
             RL_diary_weather = (RelativeLayout) rootView.findViewById(R.id.RL_diary_weather);
             RL_diary_weather.setVisibility(View.GONE);
@@ -403,14 +410,6 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
         progressDialog.setProgressStyle(android.R.style.Widget_ProgressBar);
     }
 
-    private void initLocationIcon() {
-        if (haveLocation) {
-            IV_diary_location.setImageResource(R.drawable.ic_location_on_white_24dp);
-        } else {
-            IV_diary_location.setImageResource(R.drawable.ic_location_off_white_24dp);
-            TV_diary_location.setText(noLocation);
-        }
-    }
 
     private void setDiaryTime() {
         TV_diary_month.setText(timeTools.getMonthsFullName()[calendar.get(Calendar.MONTH)]);
@@ -432,17 +431,16 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
 
     private void updateDiary() {
 
+        DBManager dbManager = new DBManager(getActivity());
+        dbManager.openDB();
         //Create locationName
         String locationName = TV_diary_location.getText().toString();
         if (noLocation.equals(locationName)) {
             locationName = "";
         }
-        new UpdateDiaryTask(getActivity(), calendar.getTimeInMillis(), EDT_diary_title.getText().toString(),
-                SP_diary_mood.getSelectedItemPosition(), SP_diary_weather.getSelectedItemPosition(),
-                locationName,
-                //Check  attachment
-                diaryItemHelper.getNowPhotoCount() > 0 ? true : false,
-                diaryItemHelper, diaryFileManager, this).execute(((DiaryActivity) getActivity()).getTopicId(), diaryId);
+        dbManager.updateDiary(diaryId, calendar.getTimeInMillis(), EDT_diary_title.getText().toString(),
+                EDT_diary_content.getText().toString(),
+                SP_diary_mood.getSelectedItemPosition(), SP_diary_weather.getSelectedItemPosition());
 
     }
 
