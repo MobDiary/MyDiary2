@@ -1,4 +1,4 @@
-package mob.mydiary.Diary.Calendar;
+package mob.mydiary.Calendar;
 
 import android.content.Context;
 import android.net.Uri;
@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
-import mob.mydiary.Diary.BaseFragment;
+import mob.mydiary.BaseFragment;
 import mob.mydiary.R;
 
 public class CalendarFragment extends BaseFragment implements View.OnClickListener, OnDateSelectedListener, DayViewDecorator

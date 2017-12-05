@@ -1,4 +1,4 @@
-package mob.mydiary.Diary;
+package mob.mydiary;
 
 import android.support.v4.app.Fragment;
 

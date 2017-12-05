@@ -1,4 +1,4 @@
-package mob.mydiary.Diary;
+package mob.mydiary;
 
 import android.content.Context;
 import android.support.v4.app.FragmentManager;
@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import mob.mydiary.Diary.Calendar.CalendarFragment;
-import mob.mydiary.Diary.Diary.DiaryFragment;
-import mob.mydiary.Diary.Entries.EntriesFragment;
+import mob.mydiary.Calendar.CalendarFragment;
+import mob.mydiary.Diary.DiaryFragment;
+import mob.mydiary.Entries.EntriesFragment;
 import mob.mydiary.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{

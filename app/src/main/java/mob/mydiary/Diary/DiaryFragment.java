@@ -1,4 +1,4 @@
-package mob.mydiary.Diary.Diary;
+package mob.mydiary.Diary;
 
 import android.content.Context;
 import android.net.Uri;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-import mob.mydiary.Diary.BaseFragment;
+import mob.mydiary.BaseFragment;
 import mob.mydiary.R;
 
 public class DiaryFragment extends BaseFragment implements View.OnClickListener{
