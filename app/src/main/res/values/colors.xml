@@ -44,13 +44,6 @@
     <color name="textview_shadow">#000000</color>
     <color name="textview_hint">#d4d2d4</color>
 
-    <!--Contacts-->
-    <color name="contacts_photo_tint">#AFABAE</color>
-    <color name="contacts_latter_text">#f9f9f9</color>
-    <color name="contacts_latter_text_shadow">#949494</color>
-
-    <!--OOBE-->
-    <color name="OOBE_bg_color">#e570A3B4</color>
 
 
 </resources>
