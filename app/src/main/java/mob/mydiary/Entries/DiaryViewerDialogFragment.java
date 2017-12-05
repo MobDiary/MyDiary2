@@ -347,7 +347,7 @@ public class DiaryViewerDialogFragment extends DialogFragment implements View.On
             initWeatherSpinner();
 
             IV_diary_delete.setOnClickListener(this);
-            IV_diary_clear.setVisibility(View.GONE);
+            IV_diary_save.setVisibility(View.GONE);
 
         }
 
